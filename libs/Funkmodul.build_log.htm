@@ -1,0 +1,131 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: µVision V5.38.0.0
+Copyright (C) 2022 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: Timo Perzi, HTL Hollabrunn, LIC=----
+ 
+Tool Versions:
+Toolchain:       MDK-Lite  Version: 5.38.0.0
+Toolchain Path:  C:\Keil_v5\ARM\ARMCLANG\Bin
+C Compiler:      ArmClang.exe V6.19
+Assembler:       Armasm.exe V6.19
+Linker/Locator:  ArmLink.exe V6.19
+Library Manager: ArmAr.exe V6.19
+Hex Converter:   FromElf.exe V6.19
+CPU DLL:         SARMCM3.DLL V5.38.0.0
+Dialog DLL:      DARMSTM.DLL V1.69.1.0
+Target DLL:      CMSIS_AGDI.dll V1.33.15.0
+Dialog DLL:      TARMSTM.DLL V1.67.1.0
+ 
+<h2>Project:</h2>
+C:\Users\Timo\OneDrive - HTL Hollabrunn\Dokumente\HTL\4. Klasse\DIC\Funkmodul\Funkmodul.uvprojx
+Project File Date:  06/12/2024
+
+<h2>Output:</h2>
+*** Using Compiler 'V6.19', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
+Rebuild target 'Target 1'
+compiling misc.c...
+compiling main.c...
+compiling stm32f10x_gpio.c...
+compiling stm32f10x_rcc.c...
+compiling stm32f10x_adc.c...
+compiling stm32f10x_usart.c...
+assembling startup_stm32f10x_md.s...
+compiling system_stm32f10x.c...
+compiling funkmodul.c...
+linking...
+Program Size: Code=7498 RO-data=378 RW-data=24 ZI-data=1760  
+".\Funkmodul.axf" - 0 Error(s), 0 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: ARM
+                http://www.keil.com/pack/ARM.CMSIS.5.9.0.pack
+                ARM.CMSIS.5.9.0
+                CMSIS (Common Microcontroller Software Interface Standard)
+   * Component: CORE Version: 5.6.0
+
+Package Vendor: HTL Hollabrunn
+                
+                HTL Hollabrunn.STD-Pack.3.2.0
+                HTL Hollabrunn library and include pack
+   * Component: NextionLib Version: 1.1.0
+   * Component: STDLib Version: 3.1.0
+
+Package Vendor: Keil
+                https://www.keil.com/pack/Keil.STM32F1xx_DFP.2.4.1.pack
+                Keil.STM32F1xx_DFP.2.4.1
+                STMicroelectronics STM32F1 Series Device Support, Drivers and Examples
+   * Component: Startup Version: 1.0.0
+   * Component: ADC Version: 3.6.0
+   * Component: Framework Version: 3.6.0
+   * Component: GPIO Version: 3.6.0
+   * Component: RCC Version: 3.6.0
+   * Component: USART Version: 3.6.0
+
+<h2>Collection of Component include folders:</h2>
+  ./RTE/Device/STM32F103RB
+  ./RTE/_Target_1
+  C:/Keil_v5/ARM/PACK/ARM/CMSIS/5.9.0/CMSIS/Core/Include
+  C:/Keil_v5/ARM/PACK/HTL Hollabrunn/STD-Pack/3.2.0/Header
+  C:/Keil_v5/ARM/PACK/Keil/STM32F1xx_DFP/2.4.1/Device/Include
+  C:/Keil_v5/ARM/PACK/Keil/STM32F1xx_DFP/2.4.1/Device/StdPeriph_Driver/inc
+
+<h2>Collection of Component Files used:</h2>
+
+   * Component: ARM::CMSIS:CORE:5.6.0
+
+   * Component: HTL Hollabrunn::HTL Hollabrunn:Libraries:NextionLib:1.1.0
+      Include file:  Header/NexDualStateButton.h
+      Include file:  Header/NexNumber.h
+      Include file:  Header/nex_io.h
+      Include file:  Header/NexProgressBar.h
+      Include file:  Header/NexSlider.h
+      Include file:  Header/NexText.h
+      Include file:  Header/NexWaveform.h
+      Include file:  Header/NexHardware.h
+      Library file:  Library/NextLib_V1.lib
+      Include file:  Header/nex_queue.h
+      Include file:  Header/NexScrolltext.h
+      Include file:  Header/NexButton.h
+      Include file:  Header/Nextion.h
+
+   * Component: HTL Hollabrunn::HTL Hollabrunn:Libraries:STDLib:3.1.0
+      Library file:  Library/ARMV30_STD.lib
+      Include file:  Header/armv30_std.h
+
+   * Component: Keil::Device:Startup:1.0.0
+      Source file:   Device/Source/ARM/STM32F1xx_OPT.s
+      Source file:   Device/Source/ARM/startup_stm32f10x_md.s
+      Source file:   Device/Source/system_stm32f10x.c
+      Include file:  RTE_Driver/Config/RTE_Device.h
+
+   * Component: Keil::Device:StdPeriph Drivers:ADC:3.6.0
+      Include file:  Device/StdPeriph_Driver/inc/stm32f10x_adc.h
+      Source file:   Device/StdPeriph_Driver/src/stm32f10x_adc.c
+
+   * Component: Keil::Device:StdPeriph Drivers:Framework:3.6.0
+      Source file:   Device/StdPeriph_Driver/src/misc.c
+      Source file:   Device/StdPeriph_Driver/templates/stm32f10x_it.c
+      Source file:   Device/StdPeriph_Driver/templates/stm32f10x_conf.h
+      Include file:  Device/StdPeriph_Driver/inc/misc.h
+      Include file:  Device/StdPeriph_Driver/templates/stm32f10x_it.h
+
+   * Component: Keil::Device:StdPeriph Drivers:GPIO:3.6.0
+      Include file:  Device/StdPeriph_Driver/inc/stm32f10x_gpio.h
+      Source file:   Device/StdPeriph_Driver/src/stm32f10x_gpio.c
+
+   * Component: Keil::Device:StdPeriph Drivers:RCC:3.6.0
+      Include file:  Device/StdPeriph_Driver/inc/stm32f10x_rcc.h
+      Source file:   Device/StdPeriph_Driver/src/stm32f10x_rcc.c
+
+   * Component: Keil::Device:StdPeriph Drivers:USART:3.6.0
+      Source file:   Device/StdPeriph_Driver/src/stm32f10x_usart.c
+      Include file:  Device/StdPeriph_Driver/inc/stm32f10x_usart.h
+Build Time Elapsed:  00:00:02
+</pre>
+</body>
+</html>
