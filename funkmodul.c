@@ -46,11 +46,11 @@ void TIM3_Config(void)
 {
 	/*-------------------------------------- Timer 3 konfigurieren ------------------------------------*/
 	RCC->APB1ENR |= 0x0002;	    // TIM3 Clock enable
-	TIM3->SMCR = 0x0000;				// Slave Mode disabled - CK_INT wird verwendet
-	TIM3->CR1 = 0x0000;	        // Upcounter: Zählt von 0 bis zum Wert des Autoreload-Registers
-  TIM3->CR1 |= 0x0080;				// ARPE-Bit setzen (Auto Reload Register buffered)
-	TIM3->PSC = 0x3B;						// Prescaler - dez. 59
-	TIM3->ARR = 0xEA60;					// Auto-Reload Register - dez. 60000
+	TIM3->SMCR = 0x0000;        // Slave Mode disabled - CK_INT wird verwendet
+	TIM3->CR1 = 0x0000;	    // Upcounter: ZÃ¤hlt von 0 bis zum Wert des Autoreload-Registers
+        TIM3->CR1 |= 0x0080;        // ARPE-Bit setzen (Auto Reload Register buffered)
+	TIM3->PSC = 0x3B;	    // Prescaler - dez. 59
+	TIM3->ARR = 0xEA60;         // Auto-Reload Register - dez. 60000
 	TIM3->DIER = 0x01;          // Enable Update Interrupt
 	NVIC_init(TIM3_IRQn,0);     // Enable Interrupt Timer3 at NVIC (Priority 0)
 	TIM3->CR1 |= 0x0001;				//starte counter
@@ -58,11 +58,11 @@ void TIM3_Config(void)
 
 void ClockConfig(void)
 {
-		FLASH->ACR = 0x12;       // Flash-Latenz auf 2 Wartezyklen einstellen
+    FLASH->ACR = 0x12;       // Flash-Latenz auf 2 Wartezyklen einstellen
     RCC->CR |= RCC_CR_HSEON; // HSE einschalten
-		RCC->CFGR |= RCC_CFGR_PLLXTPRE_HSE_Div2;
+    RCC->CFGR |= RCC_CFGR_PLLXTPRE_HSE_Div2;
     while ((RCC->CR & RCC_CR_HSERDY) == 0); // Warten, bis HSE bereit ist
-    RCC->CFGR &= ~RCC_CFGR_PLLMULL; // PLLMULL-Bits löschen
+    RCC->CFGR &= ~RCC_CFGR_PLLMULL; // PLLMULL-Bits lÃ¶schen
     RCC->CFGR |= RCC_CFGR_PLLMULL9; // 4 * 9 = 36 MHz (SYSCLK)
     RCC->CFGR |= RCC_CFGR_ADCPRE_DIV6; // ADCCLK = SYSCLK/6 (APB2 PRESCALER=1)
     RCC->CFGR |= RCC_CFGR_PPRE1_DIV2;  // PCLK1 (APB1) = SYSCLK/2 (HCLK=SYSCLK)
@@ -78,9 +78,9 @@ void ClockConfig(void)
 
 void NVIC_init(char position, char priority) 
 {	
-	//Interrupt priority register: Setzen der Interrupt Priorität
+	//Interrupt priority register: Setzen der Interrupt PrioritÃ¤t
 	NVIC->IP[position]=(priority<<4);	
-	//Interrupt Clear Pendig Register: Verhindert, dass der Interrupt auslöst sobald er enabled wird 
+	//Interrupt Clear Pendig Register: Verhindert, dass der Interrupt auslÃ¶st sobald er enabled wird 
 	NVIC->ICPR[position >> 0x05] |= (0x01 << (position & 0x1F));
 	//Interrupt Set Enable Register: Enable interrupt
 	NVIC->ISER[position >> 0x05] |= (0x01 << (position & 0x1F));
@@ -98,19 +98,19 @@ void uart3_put_string(char *string) {
 }
 
 void CC1101_init(void) {
-		int i;
-		uint8_t PaTabel[8] = {0x60 ,0x60 ,0x60 ,0x60 ,0x60 ,0x60 ,0x60 ,0x60};
-    
-    CSN_PIN = 1;
-		SCK_PIN = 1;
-		MOSI_PIN = 0;
-		
-    // Wait for CC1101 to initialize
-    for (i = 0; i < 10000; i++);
-
-		reset_CC1101();		
-		RegConfigSettings(F_433);											//CC1101 register config
-		SpiWriteBurstReg(CC1101_PATABLE,PaTabel,8);		//CC1101 PATABLE config
+	int i;
+	uint8_t PaTabel[8] = {0x60 ,0x60 ,0x60 ,0x60 ,0x60 ,0x60 ,0x60 ,0x60};
+	
+	CSN_PIN = 1;
+	SCK_PIN = 1;
+	MOSI_PIN = 0;
+	
+	// Wait for CC1101 to initialize
+	for (i = 0; i < 10000; i++);
+	
+	reset_CC1101();		
+	RegConfigSettings(F_433);		         	//CC1101 register config
+	SpiWriteBurstReg(CC1101_PATABLE,PaTabel,8);		//CC1101 PATABLE config
 }
 
 void reset_CC1101(void){
@@ -127,7 +127,7 @@ void reset_CC1101(void){
 
 void waitloop_10us(int us) {
 	int j = 0;
-  for (j = 0; j < 2700 * us; j++);
+  	for (j = 0; j < 27 * us; j++);
 }
 
 uint8_t SpiReadStatus(uint8_t addr){
@@ -153,17 +153,17 @@ void SpiWriteReg(uint8_t addr, uint8_t value)
 
 void SpiWriteBurstReg(uint8_t addr, uint8_t *buffer, uint8_t num)
 {
-		uint8_t i, temp;
-
-		temp = addr | WRITE_BURST;
-    CSN_PIN = 0;
-    while(MISO_PIN == 1);
-    SPI1_Transfer(temp);
-    for (i = 0; i < num; i++)
-		{
-        SPI1_Transfer(buffer[i]);
-    }
-    CSN_PIN = 1;
+	uint8_t i, temp;
+	
+	temp = addr | WRITE_BURST;
+	CSN_PIN = 0;
+	while(MISO_PIN == 1);
+	SPI1_Transfer(temp);
+	for (i = 0; i < num; i++)
+	{
+		SPI1_Transfer(buffer[i]);
+	}
+	CSN_PIN = 1;
 }
 
 void SpiStrobe(uint8_t strobe)
@@ -178,7 +178,7 @@ uint8_t SpiReadReg(uint8_t addr)
 {
 	uint8_t temp, value;
 
-  temp = addr|READ_SINGLE;
+  	temp = addr|READ_SINGLE;
 	CSN_PIN = 0;
 	while(MISO_PIN == 1);
 	SPI1_Transfer(temp);
@@ -204,19 +204,19 @@ void SpiReadBurstReg(uint8_t addr, uint8_t *buffer, uint8_t num)
 }
 
 uint8_t SPI1_Transfer(uint8_t data) {
-		int i;
-		uint8_t buffer;
+	int i;
+	uint8_t buffer;
 	
-		SCK_PIN = 0;
-    for (i = 7; i >= 0; --i) {
-				waitloop_10us(2);
-        MOSI_PIN = ((data >> i) & 0x01);
-				buffer = (buffer << 1) | MISO_PIN;
-				waitloop_10us(3);
-        SCK_PIN = 1;
-        waitloop_10us(6);
-        SCK_PIN = 0;
-    }
+	SCK_PIN = 0;
+	for (i = 7; i >= 0; --i) {
+	waitloop_10us(2);
+	MOSI_PIN = ((data >> i) & 0x01);
+	buffer = (buffer << 1) | MISO_PIN;
+	waitloop_10us(3);
+	SCK_PIN = 1;
+	waitloop_10us(6);
+	SCK_PIN = 0;
+	}
 		return buffer;
 }
 
@@ -225,10 +225,10 @@ void SendData(uint8_t *txBuffer,uint8_t size)
 {
 	SpiWriteReg(CC1101_TXFIFO,size);
 	SpiWriteBurstReg(CC1101_TXFIFO,txBuffer,size);			//write data to send
-	SpiStrobe(CC1101_STX);									//start send	
-  while (GDO0 != 1);								// Wait for GDO0 to be set -> sync transmitted  
-  while (GDO0 == 1);								// Wait for GDO0 to be cleared -> end of packet
-	SpiStrobe(CC1101_SFTX);									//flush TXfifo
+	SpiStrobe(CC1101_STX);						//start send	
+	while (GDO0 != 1);						// Wait for GDO0 to be set -> sync transmitted  
+	while (GDO0 == 1);						// Wait for GDO0 to be cleared -> end of packet
+	SpiStrobe(CC1101_SFTX);						//flush TXfifo
 }
 
 void SetReceive(void)
@@ -267,7 +267,7 @@ uint8_t CheckReceiveFlag(void)
 		uart3_put_string(&ausgabe[0]); 
 		return 1;
 	}
-	else							// no data
+	else				// no data
 	{
 		sprintf(ausgabe,"status.txt=\"data_not\"\xff\xff\xff");
 		uart3_put_string(&ausgabe[0]); 
@@ -314,11 +314,11 @@ void RegConfigSettings(char f)
     SpiWriteReg(CC1101_FOCCFG,   0x1D);
     SpiWriteReg(CC1101_BSCFG,    0x1C);
     SpiWriteReg(CC1101_AGCCTRL2, 0xC7);
-  	SpiWriteReg(CC1101_AGCCTRL1, 0x00);
+    SpiWriteReg(CC1101_AGCCTRL1, 0x00);
     SpiWriteReg(CC1101_AGCCTRL0, 0xB2);
     SpiWriteReg(CC1101_FSCAL3,   0xEA);
-  	SpiWriteReg(CC1101_FSCAL2,   0x2A);
-  	SpiWriteReg(CC1101_FSCAL1,   0x00);
+    SpiWriteReg(CC1101_FSCAL2,   0x2A);
+    SpiWriteReg(CC1101_FSCAL1,   0x00);
     SpiWriteReg(CC1101_FSCAL0,   0x11);
     SpiWriteReg(CC1101_FSTEST,   0x59);
     SpiWriteReg(CC1101_TEST2,    0x81);
@@ -327,7 +327,7 @@ void RegConfigSettings(char f)
     SpiWriteReg(CC1101_IOCFG2,   0x0B); 	//serial clock.synchronous to the data in synchronous serial mode
     SpiWriteReg(CC1101_IOCFG0,   0x06);  	//asserts when sync word has been sent/received, and de-asserts at the end of the packet 
     SpiWriteReg(CC1101_PKTCTRL1, 0x04);		//two status bytes will be appended to the payload of the packet,including RSSI LQI and CRC OK
-    SpiWriteReg(CC1101_PKTCTRL0, 0x05);		//whitening off;CRC Enable£»variable length packets, packet length configured by the first byte after sync word
+    SpiWriteReg(CC1101_PKTCTRL0, 0x05);		//whitening off;CRC EnableÂ£Â»variable length packets, packet length configured by the first byte after sync word
     SpiWriteReg(CC1101_ADDR,     0x00);		//address used for packet filtration.
     SpiWriteReg(CC1101_PKTLEN,   0x3D); 	//61 bytes max length
 }
